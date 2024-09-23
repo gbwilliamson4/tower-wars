@@ -31,6 +31,9 @@ export default function HomeScreen() {
           key={team.name}
           style={[styles.button, { backgroundColor: team.color }]}
           onPress={() => alert("Button pressed!")}
+          // onPress={() => {
+          //   console.log(team);
+          // }}
         >
           <Text style={styles.buttonText}>
             {team.name.charAt(0).toUpperCase() + team.name.slice(1)}
