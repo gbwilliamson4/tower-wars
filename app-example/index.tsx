@@ -1,38 +1,55 @@
-import { Team } from "@/interfaces/interfaces";
 import { Link, useRouter } from "expo-router";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 
 export default function HomeScreen() {
   const router = useRouter();
-
-  const handleTeamSelection = (team: Team) => {
-    router.push({
-      pathname: `/[team]/[color]/team`,
-      params: { team: team.name, color: team.color },
-    });
-  };
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Pick your team</Text>
+      {/* <TouchableOpacity
+        style={[styles.button, styles.button1]}
+        onPress={() => alert("Button 1 pressed")}
+      >
+        <Text style={styles.buttonText}>Button 1</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, styles.button2]}
+        onPress={() => alert("Button 2 pressed")}
+      >
+        <Text style={styles.buttonText}>Button 2</Text>
+      </TouchableOpacity> */}
       {teams.map((team) => (
-        <TouchableOpacity
+        <Link
+          href={{
+            pathname: "/team",
+            params: { name: team.name, color: team.color },
+          }}
           key={team.name}
           style={[styles.button, { backgroundColor: team.color }]}
-          onPress={() => handleTeamSelection(team)}
         >
+          {/* <TouchableOpacity> */}
           <Text style={styles.buttonText}>
             {team.name.charAt(0).toUpperCase() + team.name.slice(1)}
           </Text>
-        </TouchableOpacity>
+          {/* </TouchableOpacity> */}
+        </Link>
       ))}
     </View>
   );
 }
 
-const teams: Team[] = [
+const teams = [
   { name: "blue", color: "#1E90FF" },
   { name: "red", color: "#c90404" },
-  { name: "green", color: "#0ec904" },
+  // { name: "green", color: "#0ec904" },
 ];
 
 const styles = StyleSheet.create({
@@ -40,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#333",
+    backgroundColor: "#333", // Dark gray background
   },
   text: {
     fontSize: 24,
@@ -48,13 +65,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    width: "60%",
+    width: "60%", // Button width relative to screen
     height: "20%",
     paddingVertical: 15,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: 10, // Space between buttons
   },
   buttonText: {
     color: "white",
